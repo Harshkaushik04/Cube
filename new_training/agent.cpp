@@ -315,7 +315,9 @@ void Agent::train(Env env,long epochs,long initialBias){
                     cout<<"cube solved"<<endl;
                 }
         }
-
+        // if(epoch%5==0){
+        //     cout<<this->model->parameters()<<endl;
+        // }
         if(epoch%150==0){
             for (size_t i = 0; i < this->model->parameters().size(); i++) {
                 this->targetModel->parameters()[i].data().copy_(this->model->parameters()[i].data());

@@ -1,0 +1,28 @@
+--these are instructions for making object files of the files which would remain unchanged:
+(so that we dont have to compile them everytime when a particular file is changed,just link the already compiled object
+file with other unchanged object file)
+
+g++ -I/home/harsh/libtorch/include \
+    -I/home/harsh/libtorch/include/torch/csrc/api/include \
+    -c agent.cpp model.cpp cube.cpp env.cpp
+
+mv agent.o model.o cube.o env.o outputs/
+
+--instruction for compiling the changed source:
+
+g++ -I/home/harsh/libtorch/include \
+    -I/home/harsh/libtorch/include/torch/csrc/api/include \
+    -c new_checking.cpp -o outputs/new_checking.o
+
+--linking everything
+
+g++ outputs/new_checking.o outputs/agent.o outputs/model.o outputs/cube.o outputs/env.o \
+    -o outputs/new_checking \
+    -L/home/harsh/libtorch/lib -Wl,--no-as-needed \
+    -ltorch -ltorch_cuda -lc10 -ltorch_cpu
+
+--running
+
+./outputs/new_checking
+
+

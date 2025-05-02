@@ -10,7 +10,7 @@ public:
     torch::nn::Dropout dropout{nullptr};
     std::shared_ptr<torch::optim::Adam> optimizer;
     float learningRate;
-    int inputSize=324;
+    int inputSize=324; //9pieces*6faces*6colors
     int hiddenLayer1=512;
     int hiddenLayer2=256;
     int hiddenLayer3=128;

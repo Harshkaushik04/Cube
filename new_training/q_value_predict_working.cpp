@@ -62,7 +62,7 @@ int main(){
     };    
     Cube cube=Cube(oneHotEncoded);
     torch::Tensor oneHotEncodedTensor=vectorToTensor2(oneHotEncoded);
-    oneHotEncodedTensor=oneHotEncodedTensor.to(torch::kCUDA);
+    oneHotEncodedTensor=oneHotEncodedTensor.to(torch::kCUDA).unsqueeze(0);
     // Env env=Env(cube,Stage::Cross1,0,0);
     CubeNetImpl model=CubeNetImpl(0.0001,0.2,16);
     model.loadModel("model_itter/15001.pt");

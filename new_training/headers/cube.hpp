@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
 #include<vector>
-#include<torch/torch.h>
 #include<string>
 
 enum class color {White,Red,Blue,Orange,Green,Yellow};
@@ -49,7 +48,7 @@ public:
     bool checkCross1();
     bool checkCross2();
     bool checkCross3();
-    void testing();
+    void testing(bool verbose);
     void solveCross1();
     color locationToColor(std::vector<int> location);
     // void execueteCommands(vector<string>);

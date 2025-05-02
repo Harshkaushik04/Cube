@@ -1335,7 +1335,7 @@ vector<int> Cube::randomScramble(int numMoves=22){
     return moves;
 }
 
-void Cube::testing(){
+void Cube::testing(bool verbose=false){
     random_device rd;  
     mt19937 gen(rd()); 
     uniform_int_distribution<int> dist(0, 15); 
@@ -1344,56 +1344,60 @@ void Cube::testing(){
     this->resetToSolved();
     for(int i=0;i<numMoves;i++){
         numAction=dist(gen);
-        if(numAction==0){
-            cout<<"R(0,1)"<<endl;
-        }
-        else if(numAction==1){
-            cout<<"R(0,2)"<<endl;
-        }
-        else if(numAction==2){
-            cout<<"R(0,3)"<<endl;
-        }
-        else if(numAction==3){
-            cout<<"R(0,4)"<<endl;
-        }
-        else if(numAction==4){
-            cout<<"Rprime(0,1)"<<endl;
-        }
-        else if(numAction==5){
-            cout<<"Rprime(0,2)"<<endl;
-        }
-        else if(numAction==6){
-            cout<<"Rprime(0,3)"<<endl;
-        }
-        else if(numAction==7){
-            cout<<"Rprime(0,4)"<<endl;
-        }
-        else if(numAction==8){
-            cout<<"U(0)"<<endl;
-        }
-        else if(numAction==9){
-            cout<<"U(5)"<<endl;
-        }
-        else if(numAction==10){
-            cout<<"Uprime(0)"<<endl;
-        }
-        else if(numAction==11){
-            cout<<"Uprime(5)"<<endl;
-        }
-        else if(numAction==12){
-            cout<<"M(0,1)"<<endl;
-        }
-        else if(numAction==13){
-            cout<<"M(0,2)"<<endl;
-        }
-        else if(numAction==14){
-            cout<<"Mprime(0,1)"<<endl;
-        }
-        else if(numAction==15){
-            cout<<"Mprime(0,2)"<<endl;
+        if(verbose){
+            if(numAction==0){
+                cout<<"R(0,1)"<<endl;
+            }
+            else if(numAction==1){
+                cout<<"R(0,2)"<<endl;
+            }
+            else if(numAction==2){
+                cout<<"R(0,3)"<<endl;
+            }
+            else if(numAction==3){
+                cout<<"R(0,4)"<<endl;
+            }
+            else if(numAction==4){
+                cout<<"Rprime(0,1)"<<endl;
+            }
+            else if(numAction==5){
+                cout<<"Rprime(0,2)"<<endl;
+            }
+            else if(numAction==6){
+                cout<<"Rprime(0,3)"<<endl;
+            }
+            else if(numAction==7){
+                cout<<"Rprime(0,4)"<<endl;
+            }
+            else if(numAction==8){
+                cout<<"U(0)"<<endl;
+            }
+            else if(numAction==9){
+                cout<<"U(5)"<<endl;
+            }
+            else if(numAction==10){
+                cout<<"Uprime(0)"<<endl;
+            }
+            else if(numAction==11){
+                cout<<"Uprime(5)"<<endl;
+            }
+            else if(numAction==12){
+                cout<<"M(0,1)"<<endl;
+            }
+            else if(numAction==13){
+                cout<<"M(0,2)"<<endl;
+            }
+            else if(numAction==14){
+                cout<<"Mprime(0,1)"<<endl;
+            }
+            else if(numAction==15){
+                cout<<"Mprime(0,2)"<<endl;
+            }
         }
         this->takeAction(numAction);
-        printCube();
+        if(verbose){
+            printCube();
+        }
     }
 }
 

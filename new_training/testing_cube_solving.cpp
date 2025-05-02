@@ -35,14 +35,21 @@ int main(){
             {color::White, color::Blue,   color::Orange}
         }
     };
-    Cube cube(cube3DArray);
-    cout<<"cube initially:"<<endl;
-    cube.printCube();
+    // for(int i=0;i<)
+    Cube cube=Cube();
     CubeSolver cubesolver=CubeSolver(cube);
-    cubesolver.whiteCross();
-    cout<<"cube after algo:"<<endl;
-    cube=cubesolver.cube;
-    cube.printCube();
+    for(int i=0;i<20;i++){
+        cout<<i<<":"<<endl;
+        cube.testing(false);
+        cubesolver=CubeSolver(cube);
+        cubesolver.whiteCrossVerboseMode=true;
+        cout<<"cube initially:"<<endl;
+        cube.printCube();
+        cubesolver.whiteCross();
+        cout<<"cube after algo:"<<endl;
+        cube=cubesolver.cube;
+        cube.printCube();
+    }
     return 0;
 }
 //scramble R2UB2R'L'U2RD'FB' white as top and red as front

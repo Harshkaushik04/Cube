@@ -14,6 +14,7 @@ type1->type4->done
 class CubeSolver{
 public:
     Cube cube;
+    bool whiteCrossVerboseMode;
     std::vector<std::pair<std::pair<std::vector<int>,std::vector<int>>,color>> WhiteEdges; // vector of 4 edges{std::pair{std::pair{edge face1,edge face2},color}}
     std::vector<std::pair<std::pair<std::vector<int>,std::vector<int>>,color>> YellowEdges; // std::vector of 4 edges{std::pair{std::pair{edge face1,edge face2},color}}
     std::vector<std::pair<std::vector<int>,std::vector<int>>> MiddleEdges;

@@ -2,6 +2,7 @@
 #include<iostream>
 #include<vector>
 #include<torch/torch.h>
+#include<string>
 
 enum class color {White,Red,Blue,Orange,Green,Yellow};
 enum class order{first,second,third,firstplusreverse,secondplusreverse,thirdplusreverse};
@@ -50,4 +51,6 @@ public:
     bool checkCross3();
     void testing();
     void solveCross1();
+    color locationToColor(std::vector<int> location);
+    // void execueteCommands(vector<string>);
 };

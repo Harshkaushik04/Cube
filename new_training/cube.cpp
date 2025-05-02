@@ -539,7 +539,7 @@ void Cube::Lprime(int top=0,int front=1){
 }
 
 void Cube::F(int top=0,int front=1){
-    if(top==1){
+    if(top==0){
         if(front==1){
             R(0,4);
         }
@@ -570,7 +570,7 @@ void Cube::F(int top=0,int front=1){
 }
 
 void Cube::Fprime(int top=0,int front=1){
-    if(top==1){
+    if(top==0){
         if(front==1){
             Rprime(0,4);
         }
@@ -972,6 +972,7 @@ void Cube::Mprime(int top=0,int front=1){
 }
 
 void Cube::printCube(){
+    cout<<endl;
     for(int i=0;i<6;i++){
         for(int j=0;j<3;j++){
             for(int k=0;k<3;k++){
@@ -1396,6 +1397,12 @@ void Cube::testing(){
     }
 }
 
-void Cube::solveCross1(){
-    
+color Cube::locationToColor(vector<int> location){
+    return this->cube3DArray[location[0]][location[1]][location[2]];
 }
+
+// void Cube::execueteCommands(vector<string> commands){
+//     for(string command:commands){
+//         if(command=="R")
+//     }
+// }

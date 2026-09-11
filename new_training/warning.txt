@@ -1,0 +1,1 @@
+just unset the LD_LIBRARY_PATH so might have to set again for proper functioning

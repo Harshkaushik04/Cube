@@ -54,6 +54,26 @@ Cube::Cube(vector<vector<vector<color>>>& cube3DArray){
 Cube::Cube(vector<vector<vector<vector<int>>>>& oneHotEncodedArray){
     this->oneHotEncodedArray=oneHotEncodedArray;
     this->cube3DArray=Cube::fullyConvertBack(oneHotEncodedArray);
+    this->solvedCube3DArray={{{color::White,color::White,color::White},
+    {color::White,color::White,color::White},
+    {color::White,color::White,color::White}},
+    {{color::Red,color::Red,color::Red},
+    {color::Red,color::Red,color::Red},
+    {color::Red,color::Red,color::Red}},
+    {{color::Green,color::Green,color::Green},
+    {color::Green,color::Green,color::Green},
+    {color::Green,color::Green,color::Green}},
+    {{color::Orange,color::Orange,color::Orange},
+    {color::Orange,color::Orange,color::Orange},
+    {color::Orange,color::Orange,color::Orange}},
+    {{color::Blue,color::Blue,color::Blue},
+    {color::Blue,color::Blue,color::Blue},
+    {color::Blue,color::Blue,color::Blue}},
+    {{color::Yellow,color::Yellow,color::Yellow},
+    {color::Yellow,color::Yellow,color::Yellow},
+    {color::Yellow,color::Yellow,color::Yellow}}
+    };
+    this->solvedOneHotEncodedArray=convertToOneHot(this->solvedCube3DArray);
 }
 
 void Cube::R(int top,int front){
@@ -600,6 +620,68 @@ void Cube::Fprime(int top=0,int front=1){
     }
 }
 
+void Cube::B(int top=0,int front=1){
+    if(top==0){
+        if(front==1){
+            F(0,3);
+        }
+        else if(front==2){
+            F(0,4);
+        }
+        else if(front==3){
+            F(0,1);
+        }
+        else if(front==4){
+            F(0,2);
+        }
+    }
+    else if(top==5){
+        if(front==1){
+            F(5,3);
+        }
+        else if(front==2){
+            F(5,4);
+        }
+        else if(front==3){
+            F(5,1);
+        }
+        else if(front==4){
+            F(5,2);
+        }
+    }
+}
+
+void Cube::Bprime(int top=0,int front=1){
+    if(top==0){
+        if(front==1){
+            Fprime(0,3);
+        }
+        else if(front==2){
+            Fprime(0,4);
+        }
+        else if(front==3){
+            Fprime(0,1);
+        }
+        else if(front==4){
+            Fprime(0,2);
+        }
+    }
+    else if(top==5){
+        if(front==1){
+            Fprime(5,3);
+        }
+        else if(front==2){
+            Fprime(5,4);
+        }
+        else if(front==3){
+            Fprime(5,1);
+        }
+        else if(front==4){
+            Fprime(5,2);
+        }
+    }
+}
+
 void Cube::U(int top=0){
     if(top==0){
          //rotating layer changes
@@ -1124,6 +1206,88 @@ void Cube::takeAction(int numAction){
     else if(numAction==15){
         Mprime(0,2);
     }
+    else if(numAction==16){
+        M(1,2);
+    }
+    else if(numAction==17){
+        Mprime(1,2);
+    }
+}
+
+void Cube::takeAction(string move,int top,int front){
+    if(move=="R"){
+        R(top,front);
+    }
+    else if(move=="Rprime"){
+        Rprime(top,front);
+    }
+    else if(move=="L"){
+        L(top,front);
+    }
+    else if(move=="Lprime"){
+        Lprime(top,front);
+    }
+    else if(move=="U"){
+        U(top);
+    }
+    else if(move=="Uprime"){
+        Uprime(top);
+    }
+    else if(move=="M"){
+        M(top,front);
+    }
+    else if(move=="Mprime"){
+        Mprime(top,front);
+    }
+    else if(move=="F"){
+        F(top,front);
+    }
+    else if(move=="Fprime"){
+        Fprime(top,front);
+    }
+    else if(move=="B"){
+        B(top,front);
+    }
+    else if(move=="Bprime"){
+        Bprime(top,front);
+    }
+    else if(move=="D"){
+        D(top);
+    }
+    else if(move=="Dprime"){
+        Dprime(top);
+    }
+}
+
+void Cube::scramble(vector<int>& moves,bool verbose=false){
+    if(verbose){
+        cout<<"start:"<<endl;
+        printCube();
+    }
+    for(int move:moves){
+        takeAction(move);
+        if(verbose){
+            cout<<"after "<<move<<endl;
+            printCube();
+        }
+    }
+}
+
+void Cube::scramble(vector<pair<string,pair<int,int>>>& moves,bool verbose=false){
+    if(verbose){
+        cout<<"start:"<<endl;
+        printCube();
+    }
+    for(pair<string,pair<int,int>>& move: moves){
+        string strMove=move.first;
+        int top=move.second.first;
+        int front=move.second.second;
+        takeAction(strMove,top,front);
+        if(verbose){
+            cout<<"after "<<strMove<<"("<<top<<","<<front<<")"<<endl;
+            printCube();
+        }
+    }
 }
 
 bool Cube::checkWhiteCross(){
@@ -1323,7 +1487,7 @@ void Cube::resetToSolved(){
 vector<int> Cube::randomScramble(int numMoves=22){
     random_device rd;  
     mt19937 gen(rd()); 
-    uniform_int_distribution<int> dist(0, 15); 
+    uniform_int_distribution<int> dist(0, 17); 
     vector<int> moves;
     int numAction;
     this->resetToSolved();
@@ -1338,7 +1502,7 @@ vector<int> Cube::randomScramble(int numMoves=22){
 void Cube::testing(bool verbose=false){
     random_device rd;  
     mt19937 gen(rd()); 
-    uniform_int_distribution<int> dist(0, 15); 
+    uniform_int_distribution<int> dist(0, 17); 
     int numAction;
     int numMoves=22;
     this->resetToSolved();
@@ -1392,6 +1556,12 @@ void Cube::testing(bool verbose=false){
             }
             else if(numAction==15){
                 cout<<"Mprime(0,2)"<<endl;
+            }
+            else if(numAction==16){
+                cout<<"M(1,2)"<<endl;
+            }
+            else if(numAction==17){
+                cout<<"Mprime(1,2)"<<endl;
             }
         }
         this->takeAction(numAction);

@@ -21,6 +21,8 @@ public:
     void Lprime(int,int);
     void F(int,int);
     void Fprime(int,int);
+    void B(int,int);
+    void Bprime(int,int);
     void U(int);
     void Uprime(int);
     void D(int);
@@ -31,6 +33,9 @@ public:
     std::vector<std::vector<std::vector<std::vector<int>>>> convertToOneHot(std::vector<std::vector<std::vector<color>>>&);
     std::vector<std::vector<std::vector<color>>> fullyConvertBack(std::vector<std::vector<std::vector<std::vector<int>>>>&);
     void takeAction(int);
+    void takeAction(std::string,int,int);
+    void scramble(std::vector<int>&,bool);
+    void scramble(std::vector<std::pair<std::string,std::pair<int,int>>>&,bool);
     bool checkWhiteCross();
     bool checkF2L1pair();
     bool checkF2L2pair();

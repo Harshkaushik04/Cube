@@ -9,6 +9,7 @@ TORCH_LIBS = -L$(TORCH_DIR)/lib -Wl,--no-as-needed -ltorch -ltorch_cuda -lc10 -l
 # Output directory
 OUTPUT_DIR = outputs
 TARGET = $(OUTPUT_DIR)/cube
+TEST = $(OUTPUT_DIR)/test
 
 # Ensure output directory exists
 $(OUTPUT_DIR):
@@ -18,12 +19,16 @@ $(OUTPUT_DIR):
 $(TARGET): cube.cpp env.cpp | $(OUTPUT_DIR)
 	$(CXX) $(TORCH_INCLUDE) main.cpp agent.cpp model.cpp cube.cpp env.cpp -o $(TARGET) $(TORCH_LIBS)
 
+$(TEST): test.cpp cube.cpp | $(OUTPUT_DIR)
+	$(CXX) test.cpp cube.cpp -o $(TEST)
+
 # Run the program
 run: $(TARGET)
 	./$(TARGET)
 
+test: $(TEST)
+	./$(TEST)
+
 # Clean the build files
 clean:
 	rm -f $(TARGET)
-
-

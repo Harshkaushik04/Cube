@@ -105,7 +105,7 @@ void CubeSolver::whiteEdgeType4(pair<vector<int>,vector<int>> edge){
             this->cube.printCube();
         }
     }
-    cout<<endl;
+    if(whiteCrossVerboseMode) cout<<endl;
 }
 
 void CubeSolver::whiteEdgeType1(pair<vector<int>,vector<int>> edge){
@@ -352,7 +352,9 @@ void CubeSolver::whiteEdgeType2(pair<vector<int>,vector<int>> edge){
                 cout<<"Uprime ";
             }
         }
-        this->cube.printCube();
+        if(whiteCrossVerboseMode){
+            this->cube.printCube();
+        }
         whiteEdgeType3({{1,1,2},{2,1,0}});
     }
     else if(Face[1]==2){

@@ -26,3 +26,6 @@ g++ outputs/new_checking.o outputs/agent.o outputs/model.o outputs/cube.o output
 ./outputs/new_checking
 
 
+for one instruction doing whole:
+g++ -I/home/harsh/libtorch/include -I/home/harsh/libtorch/include/torch/csrc/api/include main.cpp cube.cpp cube_solving.cpp model.cpp env.cpp agent.cpp -o outputs/main -L/home/harsh/libtorch/lib -Wl,--no-as-needed -ltorch -ltorch_cuda -lc10 -ltorch_cpu
+

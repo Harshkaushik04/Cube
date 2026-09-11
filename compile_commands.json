@@ -1,0 +1,181 @@
+[
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/agent.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "agent.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/cube.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "cube.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/cube_solving.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "cube_solving.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/env.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "env.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/load_weights.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "load_weights.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/main.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "main.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/model.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "model.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/new_checking.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "new_checking.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/q_value_predict_working.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "q_value_predict_working.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/test.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "test.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/testing.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "testing.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/new_training",
+    "file": "/home/harsh/RL/Cube/new_training/testing_cube_solving.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/home/harsh/RL/Cube/new_training",
+      "-I/home/harsh/RL/Cube/new_training/headers",
+      "-I/home/harsh/libtorch/include",
+      "-I/home/harsh/libtorch/include/torch/csrc/api/include",
+      "-c",
+      "testing_cube_solving.cpp"
+    ]
+  },
+  {
+    "directory": "/home/harsh/RL/Cube/cube_cv",
+    "file": "/home/harsh/RL/Cube/cube_cv/cube_cv.cpp",
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-I/usr/include/opencv4",
+      "-c",
+      "cube_cv.cpp"
+    ]
+  }
+]

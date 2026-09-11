@@ -1,4 +1,15 @@
 {
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.files.exclude": {
+        "**/datasets": true,
+        "**/outputs": true,
+        "**/weights": true,
+        "**/model_itter": true,
+        "**/solvedCubes": true,
+        "**/runs_superseded": true,
+        "**/plots": true
+    },
     "files.associations": {
         "cctype": "cpp",
         "clocale": "cpp",
@@ -79,5 +90,6 @@
         "stack": "cpp",
         "*.ipp": "cpp",
         "locale": "cpp"
-    }
+    },
+    "C_Cpp.loggingLevel": "Debug"
 }

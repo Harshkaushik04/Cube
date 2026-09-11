@@ -18,6 +18,8 @@ public:
     std::vector<std::pair<std::pair<std::vector<int>,std::vector<int>>,color>> WhiteEdges; // vector of 4 edges{std::pair{std::pair{edge face1,edge face2},color}}
     std::vector<std::pair<std::pair<std::vector<int>,std::vector<int>>,color>> YellowEdges; // std::vector of 4 edges{std::pair{std::pair{edge face1,edge face2},color}}
     std::vector<std::pair<std::vector<int>,std::vector<int>>> MiddleEdges;
+    std::vector<std::pair<std::vector<std::vector<int>>,std::vector<color>>> whiteCorners;
+    std::vector<std::pair<std::vector<std::vector<int>>,std::vector<color>>> yellowCorners;
     CubeSolver(Cube);
     std::pair<std::pair<std::vector<int>,std::vector<int>>,WhiteEdgeType> findUnmatchedWhiteEdge();
     void whiteEdgeType1(std::pair<std::vector<int>,std::vector<int>> edge);

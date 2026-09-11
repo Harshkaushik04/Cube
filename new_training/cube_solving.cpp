@@ -7,11 +7,31 @@ using namespace std;
 CubeSolver::CubeSolver(Cube cube){
     this->cube=cube;
     this->whiteCrossVerboseMode=false;
+    // std::vector<std::pair<std::pair<std::vector<int>,std::vector<int>>,color>>
     // vector of 4 edges{pair{pair{edge face1,edge face2},color}}
-    this->WhiteEdges={{{{0,1,2},{2,0,1}},color::Green},{{{0,2,1},{1,0,1}},color::Red},{{{0,1,0},{4,0,1}},color::Blue},{{{0,0,1},{3,0,1}},color::Orange}};
-    this->YellowEdges={{{{5,1,2},{2,2,1}},color::Green},{{{5,2,1},{3,2,1}},color::Orange},{{{5,1,0},{4,2,1}},color::Blue},{{{5,0,1},{1,2,1}},color::Red}};
+    this->WhiteEdges={{{{0,1,2},{2,0,1}},color::Green},
+                      {{{0,2,1},{1,0,1}},color::Red},
+                      {{{0,1,0},{4,0,1}},color::Blue},
+                      {{{0,0,1},{3,0,1}},color::Orange}};
+    this->YellowEdges={{{{5,1,2},{2,2,1}},color::Green},
+                       {{{5,2,1},{3,2,1}},color::Orange},
+                       {{{5,1,0},{4,2,1}},color::Blue},
+                       {{{5,0,1},{1,2,1}},color::Red}};
+    // std::vector<std::pair<std::vector<int>,std::vector<int>>> 
     //vector of 4 edges<pair<edge face1,edge face2>>
-    this->MiddleEdges={{{4,1,2},{1,1,0}},{{1,1,2},{2,1,0}},{{2,1,2},{3,1,0}},{{3,1,2},{4,1,0}}};
+    this->MiddleEdges={{{4,1,2},{1,1,0}},
+                       {{1,1,2},{2,1,0}},
+                       {{2,1,2},{3,1,0}},
+                       {{3,1,2},{4,1,0}}};
+    // std::vector<std::pair<std::vector<std::vector<int>>,std::vector<color>>>
+    this->whiteCorners={{{{0,0,0},{3,0,2},{4,0,1}},{color::Orange,color::Blue}},
+                        {{{0,0,2},{2,0,2},{3,0,1}},{color::Green,color::Orange}},
+                        {{{0,2,0},{1,0,0},{4,0,2}},{color::Red,color::Blue}},
+                        {{{0,2,2},{1,0,2},{2,0,0}},{color::Red,color::Green}}};
+    this->yellowCorners={{{{5,0,0},{1,2,0},{4,2,2}},{color::Red,color::Blue}},
+                         {{{5,0,2},{1,2,2},{2,2,0}},{color::Red,color::Green}},
+                         {{{5,2,0},{3,2,2},{4,2,0}},{color::Orange,color::Blue}},
+                         {{{5,2,2},{2,2,2},{3,2,0}},{color::Green,color::Orange}}};
 }
 
 pair<pair<vector<int>,vector<int>>,WhiteEdgeType> CubeSolver::findUnmatchedWhiteEdge(){

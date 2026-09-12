@@ -25,6 +25,12 @@ Cube::Cube(){
     this->solvedOneHotEncodedArray=convertToOneHot(this->solvedCube3DArray);
     this->cube3DArray=this->solvedCube3DArray;
     this->oneHotEncodedArray=this->solvedOneHotEncodedArray;
+    this->colorToNumbering[color::White]=0;
+    this->colorToNumbering[color::Red]=1;
+    this->colorToNumbering[color::Green]=2;
+    this->colorToNumbering[color::Orange]=3;
+    this->colorToNumbering[color::Blue]=4;
+    this->colorToNumbering[color::Yellow]=5;
 }
 
 Cube::Cube(vector<vector<vector<color>>>& cube3DArray){
@@ -50,6 +56,12 @@ Cube::Cube(vector<vector<vector<color>>>& cube3DArray){
     {color::Yellow,color::Yellow,color::Yellow}}
     };
     this->solvedOneHotEncodedArray=convertToOneHot(this->solvedCube3DArray);
+    this->colorToNumbering[color::White]=0;
+    this->colorToNumbering[color::Red]=1;
+    this->colorToNumbering[color::Green]=2;
+    this->colorToNumbering[color::Orange]=3;
+    this->colorToNumbering[color::Blue]=4;
+    this->colorToNumbering[color::Yellow]=5;
 }
 Cube::Cube(vector<vector<vector<vector<int>>>>& oneHotEncodedArray){
     this->oneHotEncodedArray=oneHotEncodedArray;
@@ -74,6 +86,12 @@ Cube::Cube(vector<vector<vector<vector<int>>>>& oneHotEncodedArray){
     {color::Yellow,color::Yellow,color::Yellow}}
     };
     this->solvedOneHotEncodedArray=convertToOneHot(this->solvedCube3DArray);
+    this->colorToNumbering[color::White]=0;
+    this->colorToNumbering[color::Red]=1;
+    this->colorToNumbering[color::Green]=2;
+    this->colorToNumbering[color::Orange]=3;
+    this->colorToNumbering[color::Blue]=4;
+    this->colorToNumbering[color::Yellow]=5;
 }
 
 void Cube::R(int top,int front){

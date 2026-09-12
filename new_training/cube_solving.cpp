@@ -1,4 +1,5 @@
 #include<iostream>
+#include<unordered_map>
 #include "headers/cube_solving.hpp"
 using namespace std;
 
@@ -7,6 +8,7 @@ using namespace std;
 CubeSolver::CubeSolver(Cube cube){
     this->cube=cube;
     this->whiteCrossVerboseMode=false;
+    this->f2lVerboseMode=false;
     // std::vector<std::pair<std::pair<std::vector<int>,std::vector<int>>,color>>
     // vector of 4 edges{pair{pair{edge face1,edge face2},color}}
     this->WhiteEdges={{{{0,1,2},{2,0,1}},color::Green},
@@ -24,6 +26,7 @@ CubeSolver::CubeSolver(Cube cube){
                        {{2,1,2},{3,1,0}},
                        {{3,1,2},{4,1,0}}};
     // std::vector<std::pair<std::vector<std::vector<int>>,std::vector<color>>>
+    // std::vector<color> part seems redundant- may use in future, currently not being used
     this->whiteCorners={{{{0,0,0},{3,0,2},{4,0,1}},{color::Orange,color::Blue}},
                         {{{0,0,2},{2,0,2},{3,0,1}},{color::Green,color::Orange}},
                         {{{0,2,0},{1,0,0},{4,0,2}},{color::Red,color::Blue}},
@@ -32,6 +35,11 @@ CubeSolver::CubeSolver(Cube cube){
                          {{{5,0,2},{1,2,2},{2,2,0}},{color::Red,color::Green}},
                          {{{5,2,0},{3,2,2},{4,2,0}},{color::Orange,color::Blue}},
                          {{{5,2,2},{2,2,2},{3,2,0}},{color::Green,color::Orange}}};
+    unordered_map<color,int> f2lColorNumbering;
+    f2lColorNumbering[color::Red]=1;
+    f2lColorNumbering[color::Blue]=2;
+    f2lColorNumbering[color::Orange]=3;
+    f2lColorNumbering[color::Green]=4;
 }
 
 pair<pair<vector<int>,vector<int>>,WhiteEdgeType> CubeSolver::findUnmatchedWhiteEdge(){
@@ -78,7 +86,7 @@ pair<pair<vector<int>,vector<int>>,WhiteEdgeType> CubeSolver::findUnmatchedWhite
     return {{{0,0,0},{0,0,0}},WhiteEdgeType::done};
 } 
 
-void CubeSolver::whiteEdgeType4(pair<vector<int>,vector<int>> edge){
+void CubeSolver::whiteEdgeType4(pair<vector<int>,vector<int>>& edge){
     vector<int> Face=edge.first;
     vector<int> Face1=edge.second;
     color face1Color=this->cube.locationToColor(Face1);
@@ -128,7 +136,7 @@ void CubeSolver::whiteEdgeType4(pair<vector<int>,vector<int>> edge){
     if(whiteCrossVerboseMode) cout<<endl;
 }
 
-void CubeSolver::whiteEdgeType1(pair<vector<int>,vector<int>> edge){
+void CubeSolver::whiteEdgeType1(pair<vector<int>,vector<int>>& edge){
     vector<int> Face=edge.first;
     vector<int> Face1=edge.second;
     color face1Color=this->cube.locationToColor(Face1);
@@ -157,10 +165,11 @@ void CubeSolver::whiteEdgeType1(pair<vector<int>,vector<int>> edge){
     if(whiteCrossVerboseMode){
         cout<<endl;
     }
-    whiteEdgeType4({{5,1,2},{2,2,1}});
+    pair<vector<int>,vector<int>> edge={{5,1,2},{2,2,1}};
+    whiteEdgeType4(edge);
 }
 
-void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
+void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>>& edge){
     vector<int> Face=edge.first;
     vector<int> Face1=edge.second;
     color face1Color=this->cube.locationToColor(Face1);
@@ -185,7 +194,8 @@ void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
                 cout<<"Uprime "<<endl;
             }
         }
-        whiteEdgeType4({{5,0,1},{1,2,1}});
+        pair<vector<int>,vector<int>> edge={{5,0,1},{1,2,1}};
+        whiteEdgeType4(edge);
     }
     else if(Face==MiddleEdges[0].second){ //{1,1,0}->{0,1,0},L(0,1)
         while(this->cube.locationToColor({0,1,0})==color::White){
@@ -204,7 +214,8 @@ void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
                 this->cube.printCube();
             }
         }
-        whiteEdgeType4({{5,1,0},{4,2,1}});
+        pair<vector<int>,vector<int>> edge={{5,1,0},{4,2,1}};
+        whiteEdgeType4(edge);
     }
     else if(Face==MiddleEdges[1].first){ //{1,1,2}->{0,1,2},Rprime(0,1)
         while(this->cube.locationToColor({0,1,2})==color::White){
@@ -225,7 +236,8 @@ void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
                 this->cube.printCube();
             }
         }
-        whiteEdgeType4({{5,1,2},{2,2,1}});
+        pair<vector<int>,vector<int>> edge={{5,1,2},{2,2,1}};
+        whiteEdgeType4(edge);
     }
     else if(Face==MiddleEdges[1].second){ //{2,1,0}->{0,2,1},F(0,1)
         while(this->cube.locationToColor({0,2,1})==color::White){
@@ -248,7 +260,8 @@ void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
         if(whiteCrossVerboseMode){
             cube.printCube();
         }
-        whiteEdgeType4({{5,0,1},{1,2,1}});
+        pair<vector<int>,vector<int>> edge={{5,0,1},{1,2,1}};
+        whiteEdgeType4(edge);
     }
     else if(Face==MiddleEdges[2].first){ //{2,1,2}->{0,0,1},Rprime(0,2)
         while(this->cube.locationToColor({0,0,1})==color::White){
@@ -271,7 +284,8 @@ void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
         if(whiteCrossVerboseMode){
             cube.printCube();
         }
-        whiteEdgeType4({{5,2,1},{3,2,1}});
+        pair<vector<int>,vector<int>> edge={{5,2,1},{3,2,1}};
+        whiteEdgeType4(edge);
     }
     else if(Face==MiddleEdges[2].second){ //{3,1,0}->{0,1,2},R(0,1)
         while(this->cube.locationToColor({0,1,2})==color::White){
@@ -294,7 +308,8 @@ void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
         if(whiteCrossVerboseMode){
             cube.printCube();
         }
-        whiteEdgeType4({{5,1,2},{2,2,1}});
+        pair<vector<int>,vector<int>> edge={{5,1,2},{2,2,1}};
+        whiteEdgeType4(edge);
     }
     else if(Face==MiddleEdges[3].first){ //{3,1,2}->{0,1,0},Lprime(0,1)
         while(this->cube.locationToColor({0,1,0})==color::White){
@@ -317,7 +332,8 @@ void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
         if(whiteCrossVerboseMode){
             cube.printCube();
         }
-        whiteEdgeType4({{5,1,0},{4,2,1}});
+        pair<vector<int>,vector<int>> edge={{5,1,0},{4,2,1}};
+        whiteEdgeType4(edge);
     }
     else if(Face==MiddleEdges[3].second){ //{4,1,0}->{0,0,1},F(0,3)
         while(this->cube.locationToColor({0,0,1})==color::White){
@@ -340,11 +356,12 @@ void CubeSolver::whiteEdgeType3(pair<vector<int>,vector<int>> edge){
         if(whiteCrossVerboseMode){
             cube.printCube();
         }
-        whiteEdgeType4({{5,1,1},{3,2,1}});
+        pair<vector<int>,vector<int>> edge={{5,1,1},{3,2,1}};
+        whiteEdgeType4(edge);
     }
 }
 
-void CubeSolver::whiteEdgeType2(pair<vector<int>,vector<int>> edge){
+void CubeSolver::whiteEdgeType2(pair<vector<int>,vector<int>>& edge){
     /*2 types:
     {1,0,1},{2,0,1},{3,0,1},{4,0,1}
     and 
@@ -375,7 +392,8 @@ void CubeSolver::whiteEdgeType2(pair<vector<int>,vector<int>> edge){
         if(whiteCrossVerboseMode){
             this->cube.printCube();
         }
-        whiteEdgeType3({{1,1,2},{2,1,0}});
+        pair<vector<int>,vector<int>> edge={{1,1,2},{2,1,0}};
+        whiteEdgeType3(edge);
     }
     else if(Face[1]==2){
         while(this->cube.locationToColor({1,2,1})!=color::White||this->cube.locationToColor({5,0,1})!=face1Color){
@@ -407,7 +425,8 @@ void CubeSolver::whiteEdgeType2(pair<vector<int>,vector<int>> edge){
         if(whiteCrossVerboseMode){
             this->cube.printCube();
         }
-        whiteEdgeType3({{1,1,2},{2,1,0}});
+        pair<vector<int>,vector<int>> edge={{1,1,2},{2,1,0}};
+        whiteEdgeType3(edge);
     }
 }
 
@@ -455,5 +474,129 @@ void CubeSolver::whiteCross(){
         else{ //type==done
             continue;
         }
+    }
+}
+
+pair<vector<vector<int>>,WhiteCornerType> CubeSolver::findUnmatchedWhiteCorner(){
+    WhiteCornerType cornerType=WhiteCornerType::done;
+    // type1 and type2
+    for(pair<vector<vector<int>>,vector<color>> corner:whiteCorners){
+        if(this->cube.locationToColor(corner.first[0])==color::White){
+            color cornerFaceColor1=this->cube.locationToColor(corner.first[1]);
+            color cornerFaceColor2=this->cube.locationToColor(corner.first[2]);
+            color corner1CorrospondingCentreColor=this->cube.locationToColor(vector<int>{corner.first[1][0],1,1});
+            color corner2CorrospondingCentreColor=this->cube.locationToColor(vector<int>{corner.first[2][0],1,1});
+            color corner1CorrospondingEdgeColor=this->cube.locationToColor(vector<int>{corner.first[1][0],corner.first[1][1]+1,corner.first[1][2]});
+            color corner2CorrospondingEdgeColor=this->cube.locationToColor(vector<int>{corner.first[2][0],corner.first[2][1]+1,corner.first[2][2]});
+            if(cornerFaceColor1 == corner1CorrospondingCentreColor && corner1CorrospondingEdgeColor == corner1CorrospondingCentreColor &&
+               cornerFaceColor2 == corner2CorrospondingCentreColor && corner2CorrospondingEdgeColor == corner2CorrospondingCentreColor){
+                continue;
+               }
+            return {corner.first,WhiteCornerType::type1};
+        }
+        else if(this->cube.locationToColor(corner.first[1])==color::White || this->cube.locationToColor(corner.first[2])==color::White){
+            return {corner.first,WhiteCornerType::type2};
+        }
+    }
+    //type3 and type4
+    for(pair<vector<vector<int>>,vector<color>> corner:yellowCorners){
+        if(this->cube.locationToColor(corner.first[0])==color::White){
+            return {corner.first,WhiteCornerType::type3};
+        }
+        else if(this->cube.locationToColor(corner.first[1])==color::White || this->cube.locationToColor(corner.first[2])==color::White){
+            return {corner.first,WhiteCornerType::type4};
+        }
+    }
+    return {{{0,0,0},{0,0,0},{0,0,0}},WhiteCornerType::done};
+}
+
+void CubeSolver::moveCorner(int initial,int final){ // initial is initial left side centre f2lNumbering and final is also calculated in similar way
+    if(final-initial == 1 || final-initial == -3) this->cube.Uprime(5);
+    else if(final-initial == 2 || final-initial == -2){
+        this->cube.U(5);
+        this->cube.U(5);
+    }
+    else if(final-initial == -1 || final-initial == 3) this->cube.U(5);
+}
+
+int CubeSolver::cornerToF2lRepresentative(vector<vector<int>>& corner){
+    pair<color,color> centrePairs;
+    color color1=this->cube.locationToColor(vector<int>{corner[1][0],1,1});
+    color color2=this->cube.locationToColor(vector<int>{corner[2][0],1,1});
+    centrePairs={color1,color2};
+    if(centrePairs == pair<color,color>{color::Red,color::Green}) return f2lColorNumbering[color::Red];
+    else if(centrePairs == pair<color,color>{color::Red,color::Blue}) return f2lColorNumbering[color::Blue];
+    else if(centrePairs == pair<color,color>{color::Blue,color::Orange}) return f2lColorNumbering[color::Orange];
+    else if(centrePairs == pair<color,color>{color::Orange,color::Green}) return f2lColorNumbering[color::Green];
+    return 0;
+}
+
+color CubeSolver::cornerToF2lRepresentative(vector<vector<int>>& corner,bool redundantArg){
+    pair<color,color> centrePairs;
+    color color1=this->cube.locationToColor(vector<int>{corner[1][0],1,1});
+    color color2=this->cube.locationToColor(vector<int>{corner[2][0],1,1});
+    centrePairs={color1,color2};
+    if(centrePairs == pair<color,color>{color::Red,color::Green}) return color::Red;
+    else if(centrePairs == pair<color,color>{color::Red,color::Blue}) return color::Blue;
+    else if(centrePairs == pair<color,color>{color::Blue,color::Orange}) return color::Orange;
+    else if(centrePairs == pair<color,color>{color::Orange,color::Green}) return color::Green;
+    return color::White;
+}
+
+vector<vector<int>> CubeSolver::findUnfilledF2lSlot(){
+    for(pair<vector<vector<int>>, vector<color>> corner:whiteCorners){
+        color cornerFaceColor1=this->cube.locationToColor(corner.first[1]);
+        color cornerFaceColor2=this->cube.locationToColor(corner.first[2]);
+        color corner1CorrospondingCentreColor=this->cube.locationToColor(vector<int>{corner.first[1][0],1,1});
+        color corner2CorrospondingCentreColor=this->cube.locationToColor(vector<int>{corner.first[2][0],1,1});
+        color corner1CorrospondingEdgeColor=this->cube.locationToColor(vector<int>{corner.first[1][0],corner.first[1][1]+1,corner.first[1][2]});
+        color corner2CorrospondingEdgeColor=this->cube.locationToColor(vector<int>{corner.first[2][0],corner.first[2][1]+1,corner.first[2][2]});
+        if(this->cube.locationToColor(corner.first[0]) == color::White && cornerFaceColor1 == corner1CorrospondingCentreColor 
+            && corner1CorrospondingEdgeColor == corner1CorrospondingCentreColor && cornerFaceColor2 == corner2CorrospondingCentreColor
+            && corner2CorrospondingEdgeColor == corner2CorrospondingCentreColor) continue;
+        else return corner.first;
+    }
+    return {{0,0,0},{0,0,0},{0,0,0}};
+}
+
+void CubeSolver::whiteCornerType3(vector<vector<int>>& corner){
+    vector<vector<int>> unfilledF2lCornerSlot=findUnfilledF2lSlot();
+    int unfilledF2lSlotRepresentative=cornerToF2lRepresentative(unfilledF2lCornerSlot);
+    int initialCornerRepresentative=cornerToF2lRepresentative(corner);
+    moveCorner(initialCornerRepresentative,unfilledF2lSlotRepresentative);
+    // converting from type3 -> type4
+    int top=5;
+    int front=this->cube.colorToNumbering[cornerToF2lRepresentative(corner,true)];
+    this->cube.R(top,front);
+    this->cube.U(top);
+    this->cube.U(top);
+    this->cube.Rprime(top,front);
+}
+
+void CubeSolver::whiteCornerType2(vector<vector<int>>& corner){
+    int top=5;
+    int front=this->cube.colorToNumbering[cornerToF2lRepresentative(corner,true)];
+    this->cube.R(top,front);
+    this->cube.U(top);
+    this->cube.Rprime(top,front);
+}
+
+void CubeSolver::whiteCornerType1(vector<vector<int>>& corner){
+    //solved same way as type2 corner
+    whiteCornerType2(corner);
+}
+
+Type4WhiteCornerSubType CubeSolver::findType4WhiteCornerSubType(vector<vector<int>>& corner){
+    for(int i=1;i<=2;i++){
+        if(this->cube.locationToColor(corner[i])==color::White){
+            if(corner[i][2]==0) return Type4WhiteCornerSubType::left;
+            else if(corner[i][2]==2) return Type4WhiteCornerSubType::right;
+        }
+    }
+}
+
+tuple<vector<vector<int>>,pair<vector<int>,vector<int>>,F2lEdgeType,Type4WhiteCornerSubType> CubeSolver::findF2lEdge(vector<vector<int>>& corner){
+    for(pair<vector<int>,vector<int>> edge:MiddleEdges){
+
     }
 }

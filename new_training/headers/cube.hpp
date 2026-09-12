@@ -2,6 +2,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<unordered_map>
 
 enum class color {White,Red,Blue,Orange,Green,Yellow};
 enum class order{first,second,third,firstplusreverse,secondplusreverse,thirdplusreverse};
@@ -12,6 +13,7 @@ public:
     std::vector<std::vector<std::vector<std::vector<int>>>> oneHotEncodedArray;
     std::vector<std::vector<std::vector<color>>> solvedCube3DArray;
     std::vector<std::vector<std::vector<std::vector<int>>>> solvedOneHotEncodedArray;
+    std::unordered_map<color,int> colorToNumbering;
     Cube();
     Cube(std::vector<std::vector<std::vector<color>>>&);
     Cube(std::vector<std::vector<std::vector<std::vector<int>>>>&);

@@ -21,10 +21,10 @@ CubeSolver::CubeSolver(Cube cube){
                        {{{5,0,1},{1,2,1}},color::Red}};
     // std::vector<std::pair<std::vector<int>,std::vector<int>>> 
     //vector of 4 edges<pair<edge face1,edge face2>>
-    this->MiddleEdges={{{4,1,2},{1,1,0}},
+    this->MiddleEdges={{{1,1,0},{4,1,2}},
                        {{1,1,2},{2,1,0}},
                        {{2,1,2},{3,1,0}},
-                       {{3,1,2},{4,1,0}}};
+                       {{3,1,2},{4,1,0}}}; // earlier, for some reason, the first edge was flipped- corrected it now
     // std::vector<std::pair<std::vector<std::vector<int>>,std::vector<color>>>
     // std::vector<color> part seems redundant- may use in future, currently not being used
     this->whiteCorners={{{{0,0,0},{3,0,2},{4,0,1}},{color::Orange,color::Blue}},
@@ -588,15 +588,100 @@ void CubeSolver::whiteCornerType1(vector<vector<int>>& corner){
 
 Type4WhiteCornerSubType CubeSolver::findType4WhiteCornerSubType(vector<vector<int>>& corner){
     for(int i=1;i<=2;i++){
-        if(this->cube.locationToColor(corner[i])==color::White){
-            if(corner[i][2]==0) return Type4WhiteCornerSubType::left;
-            else if(corner[i][2]==2) return Type4WhiteCornerSubType::right;
+        if(this->cube.locationToColor(corner[i])==color::White){ // earlier, these were swapped for some reason,corected it
+            if(corner[i][2]==0) return Type4WhiteCornerSubType::right;
+            else if(corner[i][2]==2) return Type4WhiteCornerSubType::left;
         }
     }
 }
 
-tuple<vector<vector<int>>,pair<vector<int>,vector<int>>,F2lEdgeType,Type4WhiteCornerSubType> CubeSolver::findF2lEdge(vector<vector<int>>& corner){
-    for(pair<vector<int>,vector<int>> edge:MiddleEdges){
+// finds f2l edge for type4 corner -> {corner,edge,edgeType,cornerType4SubType}
+// F2lPairDetials=tuple<vector<vector<int>>,pair<vector<int>,vector<int>>,F2lEdgeType,Type4WhiteCornerSubType>
+F2lPairDetails CubeSolver::findF2lEdge(vector<vector<int>>& type4Corner){
+    vector<int> topSideCorner=type4Corner[0];
+    int frontSideCornerIndex;
+    int whiteCornerIndex;
+    if(this->cube.locationToColor(type4Corner[1])==color::White){
+        frontSideCornerIndex=2;
+        whiteCornerIndex=1;
+    }
+    else{
+        frontSideCornerIndex=1;
+        whiteCornerIndex=2;
+    }
+    vector<int> frontSideCorner=type4Corner[frontSideCornerIndex];
+    color topSideCornerColor=this->cube.locationToColor(topSideCorner);
+    color frontSideCornerColor=this->cube.locationToColor(frontSideCorner);
+    Type4WhiteCornerSubType cornerSubtype=findType4WhiteCornerSubType(type4Corner);
+    for(pair<vector<int>,vector<int>>& edge:MiddleEdges){
+        color edgeColor1=this->cube.locationToColor(edge.first);
+        color edgeColor2=this->cube.locationToColor(edge.second);
+        if((topSideCornerColor == edgeColor1 && frontSideCornerColor == edgeColor2) || 
+           (topSideCornerColor == edgeColor2 && frontSideCornerColor == edgeColor1)){
+            return {type4Corner,edge,F2lEdgeType::type2,cornerSubtype};
+           }
+    }
+    for(pair<pair<vector<int>,vector<int>>,color>& edge:YellowEdges){
+        vector<int> topSideEdge=edge.first.first;
+        vector<int> frontSideEdge=edge.first.second;
+        color topSideEdgeColor=this->cube.locationToColor(topSideEdge);
+        color frontSideEdgeColor=this->cube.locationToColor(frontSideEdge);
+        int diffCornerToSide=abs(topSideCorner[1]-topSideEdge[1])==abs(topSideCorner[2]-topSideEdge[2]);
+        if(topSideCornerColor == topSideEdgeColor && frontSideCornerColor == frontSideEdgeColor){
+            if(diffCornerToSide == 1){
+                if(frontSideEdge[0] == type4Corner[whiteCornerIndex][0]) return {type4Corner,edge.first,F2lEdgeType::type3,cornerSubtype};
+                return {type4Corner,edge.first,F2lEdgeType::type1,cornerSubtype};
+            }
+            else if(diffCornerToSide == 3){
+                int oppositeSide=this->cube.oppositeSide(type4Corner[whiteCornerIndex][0]);
+                if(frontSideEdge[0] == oppositeSide) return {type4Corner,edge.first,F2lEdgeType::type4,cornerSubtype};
+                else return {type4Corner,edge.first,F2lEdgeType::type5,cornerSubtype};
+            }
+        }
+        else if(topSideCornerColor == frontSideEdgeColor && frontSideCornerColor == topSideCornerColor){
+            if(diffCornerToSide == 1){
+                if(frontSideEdge[0] == type4Corner[whiteCornerIndex][0]) return {type4Corner,edge.first,F2lEdgeType::type7,cornerSubtype};
+                else return {type4Corner,edge.first,F2lEdgeType::type9,cornerSubtype};
+            }
+            else if(diffCornerToSide == 3){
+                int oppositeSide=this->cube.oppositeSide(type4Corner[whiteCornerIndex][0]);
+                if(frontSideEdge[0] == oppositeSide) return {type4Corner,edge.first,F2lEdgeType::type8,cornerSubtype};
+                else return {type4Corner,edge.first,F2lEdgeType::type6,cornerSubtype};
+            }
+        }
+    }
+}
+
+void CubeSolver::convertMiddleEdgeToTopEdge(pair<vector<int>,vector<int>>& edge){
+    vector<int> edgeFace1=edge.first;
+    vector<int> edgeFace2=edge.second;
+    int frontFaceIndex;
+    if(edgeFace1[0]==1 && edgeFace2[0]==2) frontFaceIndex=2;
+    else if(edgeFace1[0]==2 && edgeFace2[0]==3) frontFaceIndex=3;
+    else if(edgeFace1[0]==3 && edgeFace2[0]==4) frontFaceIndex=4;
+    else if(edgeFace1[0]==1 && edgeFace2[0]==4) frontFaceIndex=1;
+    this->cube.R(5,frontFaceIndex);
+    this->cube.U(5);
+    this->cube.Rprime(5,frontFaceIndex);
+}
+
+vector<vector<int>> CubeSolver::findUnfilledF2lSlot(){
+    
+}
+
+void CubeSolver::makeF2Lpair(F2lPairDetails& f2lPairDetails){
+    vector<vector<int>> corner=get<0>(f2lPairDetails);
+    pair<vector<int>,vector<int>> edge=get<1>(f2lPairDetails);
+    F2lEdgeType f2lEdgeType=get<2>(f2lPairDetails);
+    Type4WhiteCornerSubType type4WhiteCornerSubType=get<3>(f2lPairDetails);
+    if(f2lEdgeType==F2lEdgeType::type1) return; // already done
+    else if(f2lEdgeType==F2lEdgeType::type2){
+        convertMiddleEdgeToTopEdge(edge);
+        F2lPairDetails modifiedF2lPairDetails=findF2lEdge(corner);
+        makeF2Lpair(f2lPairDetails);
+    }
+    else if(f2lEdgeType==F2lEdgeType::type3){
 
     }
+
 }

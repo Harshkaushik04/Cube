@@ -21,17 +21,22 @@ type4:white corner on top layer(ideal)
 */
 enum class Type4WhiteCornerSubType{left,right}; // for F2L
 /*
-left: if you see white face on the front side, then it is in left side of top layer
-right: if you see white face on the front side, then it is in right side of top layer
+left: if you see white face on the front side,yellow on top, then it is in left side of top layer
+right: if you see white face on the front side,yellow on top, then it is in right side of top layer
 */
-enum class F2lEdgeType{type1,type2,type3,type4,type5};
+enum class F2lEdgeType{type1,type2,type3,type4,type5,type6,type7,type8,type9};
 /*
-type1: middle layer
-type2: misaligned same side
-type3: misaligned different side
-type4: aligned same side
-type5: aligned different side
+type1: Aligned same side/done
+type2: middle layer
+type3: misaligned same side type1[White corner on same face as edge]
+type4: misaligned same side type2(1 U move)
+type5: misaligned same side type3(2 U move)
+type6: Aligned diff side
+type7: misaligned diff side type1[White corner on same face as edge]
+type8: misaligned diff side type2(1 U move)
+type9: misaligned diff side type3(2 U move)
 */
+using F2lPairDetails=std::tuple<std::vector<std::vector<int>>,std::pair<std::vector<int>,std::vector<int>>,F2lEdgeType,Type4WhiteCornerSubType>;
 class CubeSolver{
 public:
     Cube cube;
@@ -60,9 +65,11 @@ public:
     void whiteCornerType1(std::vector<std::vector<int>>& corner);
     Type4WhiteCornerSubType findType4WhiteCornerSubType(std::vector<std::vector<int>>& corner);
     // {corner,edge,edgeType,cornerType4EdgeSubType}
-    std::tuple<std::vector<std::vector<int>>,std::pair<std::vector<int>,std::vector<int>>,F2lEdgeType,Type4WhiteCornerSubType> findF2lEdge(std::vector<std::vector<int>>& corner)
-    void findF2LEdge();
-    void F2Lpair();
+    F2lPairDetails findF2lEdge(std::vector<std::vector<int>>& corner);
+    void convertMiddleEdgeToTopEdge(std::pair<std::vector<int>,std::vector<int>>& edge);
+    std::vector<std::vector<int>> findUnfilledF2lSlot();
+    void makeF2Lpair(F2lPairDetails&);
+    void F2lPair();
     void F2L();
     void YellowCross();
     void OLL();

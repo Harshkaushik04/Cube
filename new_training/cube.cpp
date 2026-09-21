@@ -1593,6 +1593,16 @@ color Cube::locationToColor(vector<int> location){
     return this->cube3DArray[location[0]][location[1]][location[2]];
 }
 
+int Cube::oppositeSide(int currentSide){
+    if(currentSide==0) return 5;
+    else if(currentSide==1) return 3;
+    else if(currentSide==2) return 4;
+    else if(currentSide==3) return 1;
+    else if(currentSide==4) return 2;
+    else if(currentSide==5) return 0;
+    return -1;
+}
+
 // void Cube::execueteCommands(vector<string> commands){
 //     for(string command:commands){
 //         if(command=="R")

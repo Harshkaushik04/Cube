@@ -58,5 +58,6 @@ public:
     void testing(bool verbose);
     void solveCross1();
     color locationToColor(std::vector<int> location);
+    int oppositeSide(int currentSide);
     // void execueteCommands(vector<string>);
 };
